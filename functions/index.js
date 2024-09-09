@@ -13,13 +13,10 @@ app.get("/.netlify/functions/index/user-info/:id", async (req, res) => {
   if (!isNumber(id)) {
     return res.status(400).json({ error: "Invalid parameter" });
   }
-
   const person = data[Number(id) - 1];
-
   if (!person) {
     return res.status(404).json({ message: "No person found" });
   }
-
   res.json(person);
 });
 
