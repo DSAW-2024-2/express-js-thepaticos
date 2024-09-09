@@ -8,6 +8,17 @@ const port = 3000;
 
 app.use(cors());
 
+function isNumber(param) {
+  return !isNaN(Number(param));
+}
+export const handler = ServerlessHttp(app);
+
+module.exports.handler = async (event, context) => {
+  const handler = ServerlessHttp(app);
+  const result = await handler(event, context);
+  return result;
+};
+
 app.get("/.netlify/functions/index/user-info/:id", async (req, res) => {
   const id = req.params.id;
   if (!isNumber(id)) {
@@ -19,14 +30,3 @@ app.get("/.netlify/functions/index/user-info/:id", async (req, res) => {
   }
   res.json(person);
 });
-
-function isNumber(param) {
-  return !isNaN(Number(param));
-}
-const handler = ServerlessHttp(app);
-
-module.exports.handler = async (event, context) => {
-  const handler = ServerlessHttp(app);
-  const result = await handler(event, context);
-  return result;
-};
