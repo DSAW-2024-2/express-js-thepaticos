@@ -1,38 +1,44 @@
 const express = require("express");
 const serverless = require("serverless-http");
 const cors = require("cors");
-const data = require("../data.json");
 
 const app = express();
-const port = 3000;
-
 app.use(cors());
 
-app.get("/user-info/:id?", async (req, res) => {
-  const id = req.params.id;
+// Student data
+const students = [
+  {
+    id: "1",
+    name: "Jhojan Camilo",
+    lastName: "Jimenez Amaya",
+    email: "jhojanjiam@unisabana.edu.co",
+    universityId: "0000301820"
+  },
+  {
+    id: "2",
+    name: "Nicolas Joel",
+    lastName: "Caceres Parra",
+    email: "nicolascacpa@unisabana.edu.co",
+    universityId: "0000273195"
+  }
+];
+
+// GET /user-info/:id? endpoint
+app.get("/user-info/:id?", (req, res) => {
+  const { id } = req.params;
+
   if (!id) {
-    return res.json(data);
+    return res.status(400).json({ error: "ID parameter is required" });
   }
 
-  if (!isNumber(id)) {
-    return res.status(400).json({ error: "Invalid parameter" });
+  const student = students.find(student => student.id === id);
+  
+  if (!student) {
+    return res.status(404).json({ error: "Student not found" });
   }
 
-  const person = data[Number(id) - 1];
-
-  if (!person) {
-    return res.status(404).json({ message: "No person found" });
-  }
-
-  res.json(person);
+  res.json(student);
 });
 
-function isNumber(param) {
-  return !isNaN(Number(param));
-}
-/*
-app.listen(port, () => {
-  console.log(`Server is listening on http://localhost:${port}`);
-});
-*/
-module.exports.handler = serverless(app);
+// Export the serverless handler
+module.exports = app;

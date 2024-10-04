@@ -4,18 +4,13 @@
   "description": "[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/xg1DyBBJ)\r # Taller en Parejas: Creación de un Endpoint con Express.js",
   "main": "index.js",
   "scripts": {
-    "vercel-build": "echo hello",
-    "start": "node api/index.js",
-    "start:dev": "nodemon api/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node api/index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.19.2",
-    "netlify-cli": "^17.35.0",
-    "netlify-lambda": "^2.0.16",
     "serverless-http": "^3.2.0"
   },
   "devDependencies": {
