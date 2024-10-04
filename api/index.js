@@ -30,9 +30,9 @@ app.get("/user-info/:id?", async (req, res) => {
 function isNumber(param) {
   return !isNaN(Number(param));
 }
-
+/*
 app.listen(port, () => {
   console.log(`Server is listening on http://localhost:${port}`);
 });
-
+*/
 module.exports.handler = serverless(app);
