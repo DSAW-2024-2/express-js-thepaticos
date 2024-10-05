@@ -1,38 +1,21 @@
 const express = require("express");
-const cors = require("cors");
-
+const data = ("./data.json");
 const app = express();
-app.use(cors());
-
-// Datos de los estudiantes
-const students = [
-  {
-    id: "1",
-    name: "Jhojan Camilo",
-    lastName: "Jimenez Amaya",
-    email: "jhojanjiam@unisabana.edu.co",
-    universityId: "0000301820"
-  },
-  {
-    id: "2",
-    name: "Nicolas Joel",
-    lastName: "Caceres Parra",
-    email: "nicolascacpa@unisabana.edu.co",
-    universityId: "0000273195"
+const port = 3000;
+app.get("/user-info/:id", async (req, res) => {
+  const id = req.params.id;
+  if (!isNumber(id)) {
+    return res.status(400).json({ error: "Invalid parameter" });
   }
-];
-
-// Endpoint GET /user-info/:id?
-app.get("/user-info/:id?", (req, res) => {
-  const { id } = req.params;
-  const student = students.find(student => student.id === id);
-
-  if (!student) {
-    return res.status(404).json({ error: "Estudiante no encontrado" });
+  const person = data[Number(id) - 1];
+  if (!person) {
+    return res.status(404).json({ message: "No person found" });
   }
-
-  res.json(student);
+  res.json(person);
 });
-
-// Exportar la app para que Vercel la maneje como función serverless
-module.exports = app;
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
+});
+function isNumber(param) {
+  return !isNaN(Number(param));
+}
