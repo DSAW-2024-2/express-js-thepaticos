@@ -21,7 +21,7 @@ const students = [
   }
 ];
 
-app.get("/user-info/:id?", (req, res) => {
+app.get("api/user-info/:id?", (req, res) => {
   const { id } = req.params;
   if (!id) {
     return res.status(400).json({ error: "ID parameter is required" });
